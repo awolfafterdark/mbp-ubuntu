@@ -46,14 +46,14 @@ if [[ -n "${KERNEL_VERSION:-}" ]]; then
   echo >&2 "===]> Info: Downloading specified kernel: ${MBP_KERNEL_TAG}";
 else
   MBP_VERSION=t2
-  MBP_KERNEL_TAG=$(curl -Ls https://github.com/t2linux/T2-Ubuntu-Kernel/releases/ | grep deb | grep download | grep "${MBP_VERSION}" | cut -d'/' -f6 | head -n1 | cut -d'v' -f2)
+  MBP_KERNEL_TAG=$(curl -Ls https://github.com/awolfafterdark/T2-Ubuntu-Kernel/releases | grep deb | grep download | grep "${MBP_VERSION}" | cut -d'/' -f6 | head -n1 | cut -d'v' -f2)
   echo >&2 "===]> Info: Downloading latest ${MBP_VERSION} kernel: ${MBP_KERNEL_TAG}";
 fi
 
-while IFS='' read -r line; do KERNEL_PACKAGES+=("$line"); done <  <(curl -sL https://github.com/t2linux/T2-Ubuntu-Kernel/releases/tag/v"${MBP_KERNEL_TAG}" | grep deb | grep span | cut -d'>' -f2 | cut -d'<' -f1)
+while IFS='' read -r line; do KERNEL_PACKAGES+=("$line"); done <  <(curl -sL https://github.com/awolfafterdark/T2-Ubuntu-Kernel/releases/tag/v"${MBP_KERNEL_TAG}" | grep deb | grep span | cut -d'>' -f2 | cut -d'<' -f1)
 
 for i in "${KERNEL_PACKAGES[@]}"; do
-  curl -LO  https://github.com/t2linux/T2-Ubuntu-Kernel/releases/download/v"${MBP_KERNEL_TAG}"/"${i}"
+  curl -LO  https://github.com/awolfafterdark/T2-Ubuntu-Kernel/releases/download/v"${MBP_KERNEL_TAG}"/"${i}"
 done
 
 echo >&2 "===]> Info: Installing kernel version: ${MBP_KERNEL_TAG}";
